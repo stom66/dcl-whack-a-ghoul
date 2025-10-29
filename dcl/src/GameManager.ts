@@ -3,6 +3,8 @@ import * as utils from '@dcl-sdk/utils'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import { ghostSpawner } from './GhostSpawner'
 import * as ui from './ui'
+import { movePlayerTo } from '~system/RestrictedActions'
+import { musicManager } from './musicManager'
 
 export enum GameState {
 	Lobby,
@@ -16,7 +18,7 @@ class GameManager {
 
 	public score: number = 0
 	public roundDuration: number = 60
-	public timeElapsed: number = 60
+	public timeElapsed: number = 0
 	public gameCooldown: number = 5
 
 	// Entities
@@ -26,17 +28,10 @@ class GameManager {
 	// Spawner stuff
 	private timeSinceLastSpawn: number = 0
 	private timeToNextSpawn: number = 0
-	private spawnInterval: number = 3
+	private spawnInterval: number = 2.25
 	private spawnIntervalVariance: number = 0.75
 
 	constructor() {}
-
-	OnGhostKilled() {
-		this.score++
-		console.log('Score: ' + this.score)
-		// Update UI if needed
-		ui.SetScore(this.score)
-	}
 
 	Init() {
 		// Spawn the trigger zones
@@ -70,9 +65,14 @@ class GameManager {
 		}
 
 		// Set up ghost spawner callback
-		ghostSpawner.SetOnGhostKilledCallback(() => this.OnGhostKilled())
+		ghostSpawner.SetOnGhostKilledCallback((score) => this.OnGhostKilled(score))
+		ghostSpawner.SetOnGhostEscapedCallback(() => this.OnGhostEscaped())
 
 		this.StartLobby()
+
+		engine.addSystem((dt: number) => {
+			this.System_GameRunner(dt)
+		})
 	}
 
 	StartLobby() {
@@ -84,37 +84,48 @@ class GameManager {
 		this.timeElapsed = 0
 		this.score = 0
 		this.timeToNextSpawn = this.spawnInterval
+
+		ui.OnLobbyReset()
 	}
 
 	StartGame() {
 		console.log('Starting game')
+		this.timeElapsed = 0
 		this.gameState = GameState.Playing
 		this.CloseGates()
 
-		this.timeElapsed = 0
-
-		engine.addSystem((dt: number) => {
-			this.System_GameRunner(dt)
-		})
+		ui.OnGameStart()
+		musicManager.PlayBGM()
 	}
 
 	GameOver() {
 		console.log('Game over')
 		// Stop the game runner
 		this.gameState = GameState.GameOver
-		engine.removeSystem(this.System_GameRunner)
+		//engine.removeSystem(this.System_GameRunner)
 
+		// Move the player back to the start
+		movePlayerTo({
+			newRelativePosition: Vector3.create(1.5, 0, 16),
+			cameraTarget: Vector3.create(8, 1, 12.5),
+			avatarTarget: Vector3.create(8, 1, 16)
+		})
 		// Clear the ghosts
 		ghostSpawner.GameOver()
 
 		utils.timers.setTimeout(() => {
 			this.StartLobby()
-		}, this.gameCooldown)
+		}, this.gameCooldown * 1000)
+
+		ui.OnGameOver()
+
+		musicManager.StopBGM()
+		musicManager.PlayGameOver()
 	}
 
 	System_GameRunner(dt: number) {
 		if (this.gameState != GameState.Playing) {
-			console.log('Game not playing')
+			//console.log('Game not playing')
 			return
 		}
 
@@ -138,6 +149,25 @@ class GameManager {
 			this.timeToNextSpawn = this.spawnInterval + Math.random() * this.spawnIntervalVariance
 			ghostSpawner.SpawnGhost()
 		}
+	}
+
+	OnGhostKilled(score: number) {
+		if (this.gameState != GameState.Playing) {
+			return
+		}
+		this.score += score
+		console.log('Score: +' + score + ' = ' + this.score)
+		// Update UI if needed
+		ui.SetScore(this.score)
+	}
+
+	OnGhostEscaped() {
+		if (this.gameState != GameState.Playing) {
+			return
+		}
+		console.log('Ghost escaped')
+		this.score--
+		ui.SetScore(this.score)
 	}
 
 	OpenGates() {

@@ -3,7 +3,7 @@
   "runtimeVersion": "7",
   "display": {
     "title": "Whack a Ghoul!",
-    "description": "Whack a Ghoul! A Halloween mini-game by stom 👻\nEnter the graveyard and stop the evil ghosts from escaping! You have 60 seconds to whack as many ghouls as you can. Don't get tricked!",
+    "description": "A Halloween mini-game by stom 👻\n\nEnter the graveyard and stop the evil ghosts from escaping! You have 60 seconds to whack as many ghouls as you can.",
     "navmapThumbnail": "images/scene-thumbnail.png",
     "favicon": "favicon_asset"
   },
@@ -32,11 +32,11 @@
       "position": {
         "x": [
           0,
-          3
+          4
         ],
         "y": [
-          0,
-          0
+          16,
+          16
         ],
         "z": [
           0,
@@ -44,9 +44,9 @@
         ]
       },
       "cameraTarget": {
-        "x": 8,
+        "x": 7,
         "y": 1,
-        "z": 8
+        "z": 20
       }
     }
   ],

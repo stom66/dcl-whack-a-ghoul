@@ -1,18 +1,20 @@
 import { Color4 } from '@dcl/sdk/math'
 import ReactEcs, { Button, Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 
+import * as utils from '@dcl-sdk/utils'
+
 export function setupUi() {
 	ReactEcsRenderer.setUiRenderer(uiComponent)
 }
 
-export var timerIsVisible = true
+export var timerScoreIsVisible = true
 export var timerValue = 0
 
-export var scoreIsVisible = true
-export var scoreValue = 0
+export var scoreValue = 999
 
-export var ammoIsVisible = true
-export var ammoValue = 0
+var gameStartIsVisible = false
+var gameOverIsVisible = true
+
 
 export function SetTimer(value: number) {
 	timerValue = value
@@ -22,9 +24,31 @@ export function SetScore(value: number) {
 	scoreValue = value
 }
 
+export function OnGameStart() {
+	timerScoreIsVisible = true
+	gameStartIsVisible = true
+
+
+	utils.timers.setTimeout(() => {
+		gameStartIsVisible = false
+	}, 5000)
+}
+
+export function OnGameOver() {
+	gameOverIsVisible = true
+}
+
+export function OnLobbyReset() {
+	timerScoreIsVisible = false
+	gameStartIsVisible = false
+	gameOverIsVisible = false
+	scoreValue = 0
+	timerValue = 0
+}
 
 const uiComponent = () => (
 	<UiEntity
+		key="ui_root"
 		uiTransform={{
 			width: "100%",
 			height: "100%",
@@ -33,108 +57,144 @@ const uiComponent = () => (
 			alignContent: 'center',
 			display: 'flex',
 			flexDirection: 'column',
-			justifyContent: 'flex-start',
+			justifyContent: 'space-between',
 			alignItems: 'center',
 		}}
-		uiBackground={{ color: Color4.create(0.5, 0.8, 0.1, 0) }}
+		//uiBackground={{ color: Color4.create(0.5, 0.8, 0.1, 0) }}
 	>	
 		<UiEntity
+			key="ui_timer_and_score"
 			uiTransform={{
 				width: "480px",
-				height: "90px",
-				margin: '0',
-				padding: "48px 0 0 0",
+				height: "123px",
 				alignContent: 'center',
 				display: 'flex',
 				flexDirection: 'row',
 				justifyContent: 'space-between',
 				alignItems: 'center',
+				margin: '32px 0 0 0',
+				flexGrow: 0,
+				flexShrink: 0,
 			}}
-			uiBackground={{ color: Color4.create(0.5, 0.8, 0.1, 0.6) }}
+			//uiBackground={{ color: Color4.create(0.5, 0.8, 0.1, 0.6) }}
 		>
 			<UiEntity
-				key="frame_timer"
+				key="timer"
 				uiTransform={{
-					width: "50%",
-					height: "100%",
-					padding: "8px 30px",
-					display: timerIsVisible ? 'flex' : 'none',
-					alignContent: 'center',
-					flexDirection: 'column',
+					width: "240px",
+					height: "123px",
+					flexDirection: 'row-reverse',
+					flexGrow: 0,
+					flexShrink: 0,
+					alignItems: 'center',
+					padding: '0 0px 0 0',
+					display: timerScoreIsVisible ? 'flex' : 'none',
 				}}
 				uiBackground={{
-					//color: Color4.create(0.5, 0.1, 0.8, 0.6),
+					//color: Color4.create(1, 0.1, 0, 1),
 					texture: {
-					src       : "images/Button00_s.png"
+						src       : "images/timer.png"
 					},
-					textureMode: "nine-slices",
-					textureSlices: {
-						top   : 0.5,
-						bottom: 0.5,
-						left  : 0.2, 
-						right : 0. 
-					}
 				}}
 			>
 				<Label
-					value       = {`Time: ${timerValue}`}
-					fontSize    = {18}
-					uiTransform = {{ width: '100%', height: "100%" }}
+					value       = {`${timerValue}`}
+					fontSize    = {92}
+					//uiBackground={{ color: Color4.create(0.5, 0.8, 0.1, 0.6) }}
+					uiTransform = {{ 
+						width: '60%', 
+						height: "80%" ,
+						flexGrow: 0,
+						flexShrink: 0,
+						alignContent: 'center'
+					}}
+					textAlign = 'middle-center'
 				/>
 			</UiEntity>
 			
-			<UiEntity
-				key="frame_score"
-				uiTransform={{
-					width         : "50%",
-					height        : "100%",
-					padding       : "32px 38px",
-					display       : scoreIsVisible ? 'flex' : 'none',
-					flexDirection : 'row',
-					justifyContent: 'space-between',
-					alignItems    : 'center',
-					alignContent  : 'center',
 
+			<UiEntity
+				key="score"
+				uiTransform={{
+					width: "240px",
+					height: "123px",
+					flexDirection: 'row-reverse',
+					flexGrow: 0,
+					flexShrink: 0,
+					alignItems: 'center',
+					display: timerScoreIsVisible ? 'flex' : 'none',
 				}}
 				uiBackground={{
-					//color: Color4.create(0.5, 0.1, 0.8, 0.6),
+					//color: Color4.create(1, 0.1, 0, 1),
 					texture: {
-						src       : "images/Button00_s.png"
+						src       : "images/score.png"
 					},
-					textureMode: "nine-slices",
-					textureSlices: {
-						top   : 0.5,
-						bottom: 0.5,
-						left  : 0.5, 
-						right : 0.5
-					}
 				}}
 			>
-				<UiEntity
-					uiTransform={{ 
-						width: '30px', 
-						height: "30px",
-						alignSelf: 'baseline',
-					}}
-					uiBackground={{ 
-						texture: {
-							src: 'images/btn_timer_f.png'
-						},
-						textureMode: 'stretch',
-					 }}
-				></UiEntity>
 				<Label
-					value       = {`Score: ${scoreValue}`}
-					fontSize    = {18}
+					value       = {`${scoreValue}`}
+					fontSize    = {56}
+					//uiBackground={{ color: Color4.create(0.5, 0.8, 0.1, 0.8) }}
 					uiTransform = {{ 
 						width: '50%', 
-						height: "30px",
-						flexGrow: 1,
-						alignSelf: 'center',
-					 }}
+						height: "60%" ,
+						flexGrow: 0,
+						flexShrink: 0,
+						alignContent: 'center',
+						padding: '0 16px 116px 16px'
+					}}
+					textAlign = 'middle-center'
 				/>
 			</UiEntity>
 		</UiEntity>
+
+				
+		<UiEntity
+			key="ui_game_start"
+			uiTransform={{
+				width: "470px",
+				height: "216px",
+				alignContent: 'center',
+				display: gameStartIsVisible ? 'flex' : 'none',
+				flexDirection: 'row',
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				margin: '0px 0 64px 0',
+				flexGrow: 0,
+				flexShrink: 0,
+			}}
+			uiBackground={{ 
+				//color: Color4.create(0.5, 0.8, 0.1, 0.6),
+				texture: {
+					src: "images/game-start.png"
+				},
+				textureMode: 'stretch'
+			}}
+		></UiEntity>
+
+				
+		<UiEntity
+			key="ui_game_start"
+			uiTransform={{
+				width: "470px",
+				height: "216px",
+				alignContent: 'center',
+				display: gameOverIsVisible ? 'flex' : 'none',
+				flexDirection: 'row',
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				margin: '0px 0 64px 0',
+				flexGrow: 0,
+				flexShrink: 0,
+			}}
+			uiBackground={{ 
+				//color: Color4.create(0.5, 0.8, 0.1, 0.6),
+				texture: {
+					src: "images/game-over.png"
+				},
+				textureMode: 'stretch'
+			}}
+		></UiEntity>
 	</UiEntity>
 )
 
