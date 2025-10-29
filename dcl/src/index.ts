@@ -3,42 +3,13 @@ import { engine, Transform, GltfContainer } from '@dcl/sdk/ecs'
 //
 // Note the 180 rotation, this is so that position in Blender align with positions in DCL (with Y and Z swapped)
 
-import { Settings } from "./_settings"
-import { setupUi }  from './ui'
+import { Settings } from './_settings'
+import { setupUi } from './ui'
+import { gameManager } from './GameManager'
+import { ghostSpawner } from './GhostSpawner'
 
 export function main() {
-	
 	setupUi()
-
-	// ███████╗ ██████╗███████╗███╗   ██╗███████╗    ██████╗  █████╗ ██████╗ ███████╗███╗   ██╗████████╗
-	// ██╔════╝██╔════╝██╔════╝████╗  ██║██╔════╝    ██╔══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
-	// ███████╗██║     █████╗  ██╔██╗ ██║█████╗      ██████╔╝███████║██████╔╝█████╗  ██╔██╗ ██║   ██║
-	// ╚════██║██║     ██╔══╝  ██║╚██╗██║██╔══╝      ██╔═══╝ ██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║   ██║
-	// ███████║╚██████╗███████╗██║ ╚████║███████╗    ██║     ██║  ██║██║  ██║███████╗██║ ╚████║   ██║
-	// ╚══════╝ ╚═════╝╚══════╝╚═╝  ╚═══╝╚══════╝    ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝
-
-	const _scene = engine.addEntity()
-
-	Transform.create(_scene, Settings.SCENE_TRANSFORM_180)
-
-
-
-	// ███████╗██╗  ██╗ █████╗ ███╗   ███╗██████╗ ██╗     ███████╗     █████╗ ███████╗███████╗███████╗████████╗
-	// ██╔════╝╚██╗██╔╝██╔══██╗████╗ ████║██╔══██╗██║     ██╔════╝    ██╔══██╗██╔════╝██╔════╝██╔════╝╚══██╔══╝
-	// █████╗   ╚███╔╝ ███████║██╔████╔██║██████╔╝██║     █████╗      ███████║███████╗███████╗█████╗     ██║
-	// ██╔══╝   ██╔██╗ ██╔══██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝      ██╔══██║╚════██║╚════██║██╔══╝     ██║
-	// ███████╗██╔╝ ██╗██║  ██║██║ ╚═╝ ██║██║     ███████╗███████╗    ██║  ██║███████║███████║███████╗   ██║
-	// ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝    ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝   ╚═╝
-	//
-
-	let asset1 = engine.addEntity()
-
-	Transform.create(asset1, Settings.SCENE_TRANSFORM)
-
-	Transform.getMutable(asset1).parent = _scene
-
-	GltfContainer.create(asset1, {
-		src: "models/example_model.gltf"
-	})
-
+	ghostSpawner.Init()
+	gameManager.Init()
 }

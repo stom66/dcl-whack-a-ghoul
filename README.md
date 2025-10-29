@@ -1,12 +1,19 @@
-## `dcl-boilerplate-scene`
+## `dcl-whack-a-ghoul`
 
-# Decentraland SDK7 Template
+# Whack a Ghoul
 
-A basic Decentraland SDK7 Scene, setup with a generic folder structure and various utility scripts.
+A simple mini-game where you boop Ghouls for treats, built for the [DCL Regenesis Labs Vibe Coding Hackathon](https://dorahacks.io/hackathon/dcl-bring-your-vibe/detail).
 
-This repo is a template repository. See [using the template](/docs/USING_THE_TEMPLATE.md) for info on using it for a project.
+I found out about this competitioon roughly 24 hours before the deadline. I used a lot of AI gen to get this project working, including:
 
-**Warning**: here be dragons
+- ChatGPT for brainstorming and inspiration
+- ChatGPT / Claude via Cursor IDE for code assistance
+- Stable Diffusion for mockup/concept art
+- https://elevenlabs.io for sound effects
+
+This project was created with the Decentrland Creator Hub and Cursor IDE, starting with an SDK7 template repository I use for most projects. More info on the template in the various links below.
+
+#### Play Whack-a-Ghoul here! 👉 [stom.dcl.eth](https://decentraland.org/play/?NETWORK=mainnet&position=0%2C0&realm=stom.dcl.eth)
 
 ---
 
