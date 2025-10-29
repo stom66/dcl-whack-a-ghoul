@@ -5,7 +5,7 @@ export function spawnLights() {
 	// entrance light
 	const light = engine.addEntity()
 	Transform.create(light, {
-		position: Vector3.create(7, 4, 15)
+		position: Vector3.create(8, 5.25, 15)
 	})
 	LightSource.create(light, {
 		type: LightSource.Type.Point({}),
@@ -14,10 +14,10 @@ export function spawnLights() {
 		intensity: 32 * 1000
 	})
 
-	// high candle light
+	// window light
 	const light2 = engine.addEntity()
 	Transform.create(light2, {
-		position: Vector3.create(23.48, 2.5, 21.52)
+		position: Vector3.create(26.05, 2.5, 20.51)
 	})
 	LightSource.create(light2, {
 		type: LightSource.Type.Point({}),
@@ -26,14 +26,14 @@ export function spawnLights() {
 		intensity: 32 * 1000
 	})
 
-	// window light
+	// high candle
 	const light3 = engine.addEntity()
 	Transform.create(light3, {
-		position: Vector3.create(16.85, 4.5, 18.88)
+		position: Vector3.create(20.57, 4.75, 19)
 	})
 	LightSource.create(light3, {
 		type: LightSource.Type.Point({}),
-		color: Color3.Yellow(),
+		color: Color3.fromHexString('#FFA500'),
 		shadow: false,
 		intensity: 32 * 1000
 	})

@@ -1,69 +1,53 @@
 {
-  "ecs7": true,
-  "runtimeVersion": "7",
-  "display": {
-    "title": "Whack a Ghoul!",
-    "description": "A Halloween mini-game by stom 👻\n\nEnter the graveyard and stop the evil ghosts from escaping! You have 60 seconds to whack as many ghouls as you can.",
-    "navmapThumbnail": "images/scene-thumbnail.png",
-    "favicon": "favicon_asset"
-  },
-  "owner": "",
-  "contact": {
-    "name": "stom",
-    "email": ""
-  },
-  "main": "bin/index.js",
-  "tags": [
-    "game"
-  ],
-  "scene": {
-    "parcels": [
-      "0,0",
-      "0,1",
-      "1,0",
-      "1,1"
-    ],
-    "base": "0,0"
-  },
-  "spawnPoints": [
-    {
-      "name": "Spawn Point 1",
-      "default": true,
-      "position": {
-        "x": [
-          0,
-          4
-        ],
-        "y": [
-          16,
-          16
-        ],
-        "z": [
-          0,
-          3
-        ]
-      },
-      "cameraTarget": {
-        "x": 7,
-        "y": 1,
-        "z": 20
-      }
-    }
-  ],
-  "requiredPermissions": [],
-  "featureToggles": {
-    "voiceChat": "enabled",
-    "portableExperiences": "enabled"
-  },
-  "skyboxConfig": {
-    "fixedTime": 80820
-  },
-  "source": {
-    "origin": "creator-hub",
-    "projectId": "9c5b4fcf-e46b-42b1-9adc-f9ff649122c7"
-  },
-  "rating": "T",
-  "worldConfiguration": {
-    "name": "stom.dcl.eth"
-  }
+	"ecs7": true,
+	"runtimeVersion": "7",
+	"display": {
+		"title": "Whack a Ghoul!",
+		"description": "A Halloween mini-game by stom 👻\n\nEnter the graveyard and stop the evil ghosts from escaping! You have 60 seconds to whack as many ghouls as you can.",
+		"navmapThumbnail": "images/scene-thumbnail.png",
+		"favicon": "favicon_asset"
+	},
+	"owner": "",
+	"contact": {
+		"name": "stom",
+		"email": ""
+	},
+	"main": "bin/index.js",
+	"tags": ["game"],
+	"scene": {
+		"parcels": ["0,0", "0,1", "1,0", "1,1"],
+		"base": "0,0"
+	},
+	"spawnPoints": [
+		{
+			"name": "Spawn Point 1",
+			"default": true,
+			"position": {
+				"x": [0, 4],
+				"y": [0, 1],
+				"z": [14, 18]
+			},
+			"cameraTarget": {
+				"x": 7,
+				"y": 1,
+				"z": 20
+			}
+		}
+	],
+	"requiredPermissions": [],
+	"featureToggles": {
+		"voiceChat": "enabled",
+		"portableExperiences": "enabled"
+	},
+	"skyboxConfig": {
+		"fixedTime": 80820
+	},
+	"source": {
+		"origin": "creator-hub",
+		"projectId": "9c5b4fcf-e46b-42b1-9adc-f9ff649122c7"
+	},
+	"rating": "T",
+	"worldConfiguration": {
+		"name": "stom.dcl.eth"
+	}
 }
