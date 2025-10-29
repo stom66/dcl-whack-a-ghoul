@@ -5,6 +5,9 @@ import { ghostSpawner } from './GhostSpawner'
 import * as ui from './ui'
 import { movePlayerTo } from '~system/RestrictedActions'
 import { musicManager } from './musicManager'
+import { _Leaderboard } from './class.Leaderboard'
+import { getPlayer } from '@dcl/sdk/src/players'
+import { leaderboardManager } from './leaderboardManager'
 
 export enum GameState {
 	Lobby,
@@ -86,6 +89,7 @@ class GameManager {
 		this.timeToNextSpawn = this.spawnInterval
 
 		ui.OnLobbyReset()
+		leaderboardManager.UpdateResults()
 	}
 
 	StartGame() {
@@ -113,14 +117,26 @@ class GameManager {
 		// Clear the ghosts
 		ghostSpawner.GameOver()
 
+		// Update UI
+		ui.OnGameOver()
+
+		// Trigger music and sfx
+		musicManager.StopBGM()
+		musicManager.PlayGameOver()
+
+		// Submit their score to the leaderboard
+		console.log('Game over, score: ' + this.score)
+		const userData = getPlayer()
+
+		if (!userData) {
+			return false
+		}
+		_Leaderboard.submitScore(userData.name, this.score)
+
+		// Wait for the game cooldown to start the lobby
 		utils.timers.setTimeout(() => {
 			this.StartLobby()
 		}, this.gameCooldown * 1000)
-
-		ui.OnGameOver()
-
-		musicManager.StopBGM()
-		musicManager.PlayGameOver()
 	}
 
 	System_GameRunner(dt: number) {

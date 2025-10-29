@@ -13,7 +13,7 @@ I found out about this competitioon roughly 24 hours before the deadline. I used
 
 This project was created with the Decentrland Creator Hub and Cursor IDE, starting with an SDK7 template repository I use for most projects. More info on the template in the various links below.
 
-#### Play Whack-a-Ghoul here! 👉 [stom.dcl.eth](https://decentraland.org/play/?NETWORK=mainnet&position=0%2C0&realm=stom.dcl.eth)
+## Play Whack-a-Ghoul here! 👉 [stom.dcl.eth](https://decentraland.org/play/?NETWORK=mainnet&position=0%2C0&realm=stom.dcl.eth)
 
 ---
 

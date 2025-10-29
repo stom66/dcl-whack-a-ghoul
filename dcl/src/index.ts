@@ -8,12 +8,12 @@ import { gameManager } from './GameManager'
 import { ghostSpawner } from './GhostSpawner'
 import { spawnLights } from './light'
 import { musicManager } from './musicManager'
-import { leaderboardController } from './leaderboardManager'
+import { leaderboardManager } from './leaderboardManager'
 
 export function main() {
 	gameManager.Init()
 	ghostSpawner.Init()
-	leaderboardController.Init()
+	leaderboardManager.Init()
 	musicManager.Init()
 
 	setupUi()

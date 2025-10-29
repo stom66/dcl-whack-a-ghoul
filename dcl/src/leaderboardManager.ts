@@ -1,7 +1,7 @@
 import { _Leaderboard } from './class.Leaderboard'
 import { MessageBus } from '@dcl/sdk/message-bus'
 
-class LeaderboardController {
+class LeaderboardManager {
 	public scores: string = ''
 	public usernames: string = ''
 
@@ -26,12 +26,12 @@ class LeaderboardController {
 	}
 }
 
-export const leaderboardController = new LeaderboardController()
+export const leaderboardManager = new LeaderboardManager()
 
 // MARK: MessageBus
 
 const sceneMessageBus = new MessageBus()
 sceneMessageBus.on('UpdateLeaderboard', () => {
 	console.log('sceneMessageBus: UpdateLeaderboard')
-	leaderboardController.UpdateResults()
+	leaderboardManager.UpdateResults()
 })
