@@ -55,7 +55,6 @@ export enum EntityNames {
   Corner_Stone_Brick_Wall_3 = "Corner Stone Brick Wall_3",
   Crow = "Crow",
   Crow_Trio = "Crow Trio",
-  Cube = "Cube",
   Curved_Stone_Brick_Wall = "Curved Stone Brick Wall",
   Dirt_Clump = "Dirt Clump",
   Dirt_Splat = "Dirt Splat",
