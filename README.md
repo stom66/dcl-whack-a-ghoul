@@ -4,12 +4,14 @@
 
 A simple mini-game where you boop Ghouls for treats, built for the [DCL Regenesis Labs Vibe Coding Hackathon](https://dorahacks.io/hackathon/dcl-bring-your-vibe/detail).
 
-I found out about this competitioon roughly 24 hours before the deadline. I used a lot of AI gen to get this project working, including:
+I found out about this competition roughly 24 hours before the deadline. I used a lot of AI gen to get this project working, including:
 
 - ChatGPT for brainstorming and inspiration
 - ChatGPT / Claude via Cursor IDE for code assistance
 - Stable Diffusion for mockup/concept art
 - https://elevenlabs.io for sound effects
+
+I talk more about my workflow in this video: [https://youtu.be/lUuK7iOSg5k](https://youtu.be/lUuK7iOSg5k)
 
 This project was created with the Decentrland Creator Hub and Cursor IDE, starting with an SDK7 template repository I use for most projects. More info on the template in the various links below.
 
@@ -46,6 +48,7 @@ This repository is split in the following folders:
 - `/config` - useful info such as import/export settings, UVPackMaster Presets, shader templates
 - `/dcl` - the DCL scene to be deployed. Exported glTF files are in `/dcl/models` along with a `tex` folder of optimised textures
 - `/docs` - extra info on relevant topics, eg asset creation
+- `/firebase` - the code for the hosted scoreboard
 - `/reference` - screenshots, previs, reference pictures used during asset creation
 - `/scripts` - various bash/blender/bat utility scripts
 
