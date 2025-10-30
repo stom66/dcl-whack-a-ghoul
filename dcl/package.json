@@ -31,7 +31,7 @@
   "dependencies": {
     "@dcl-sdk/utils": "^1.3.2"
   },
-    "worldConfiguration": {
-		"name": "stom.dcl.eth"
-	}
+  "worldConfiguration": {
+    "name": "stom.dcl.eth"
+  }
 }
